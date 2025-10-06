@@ -3,7 +3,7 @@ Esse é um projeto simples de **telas de autenticação** feito em **Kotlin** us
 Desenvolvi ele para praticar conceitos de **UI moderna**, **gerenciamento de estado** e **transição entre telas**.
 
 - [Tecnologias](#tecnologias-utilizadas)
-- [Como funciona?](#como-funciona?)
+- [Como funciona?](#como-funciona)
 - [Tomadas de Decisão](#tomadas-de-decisão)
 - [Demonstração](#demonstração)
 - [Observações](#observações)
@@ -42,18 +42,20 @@ O **LoginFlow** possui quatro telas principais, sendo elas:
 ## Tomadas de Decisão
 
 ### Gerenciamento de estado
-Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.  
+Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.
 Isso deixou o fluxo mais leve e direto, sem precisar criar ViewModels.
 
 ### Material 3
-Escolhi o **Material 3** para dar um visual consistente e moderno às telas, mantendo o padrão visual dos apps Android atuais.
+Escolhi o **Material 3** para dar um visual consistente e moderno às telas, mantendo o padrão   
+visual dos apps Android atuais.
 
 ### Card
-Implementei o uso do `Card` para testar composição de layouts com **bordas arredondadas**, **imagem de cabeçalho** e **conteúdo dinâmico**.  
+Implementei o uso do `Card` para testar composição de layouts com **bordas arredondadas**, **imagem de cabeçalho** e **conteúdo dinâmico**.
 O resultado foi uma tela simples, mas visualmente interessante e organizada.
 
 ### AsyncImage e Coil
-Utilizei o **Coil Compose** com `AsyncImage` para exibir imagens hospedadas na web de forma leve e prática, sem precisar de bibliotecas pesadas.
+Utilizei o **Coil Compose** com `AsyncImage` para exibir imagens hospedadas na web de forma leve e prática, sem  
+precisar de bibliotecas pesadas.
 
 ### Animações
 Adicionei uma pequena animação de rotação no ícone de “Like” para dar mais vida à interface, utilizando `animateFloatAsState`.
@@ -64,7 +66,7 @@ Deixarei abaixo um `Vídeo` curto para demonstração do App em funcionamento:
 
 ## Observações
 O **LoginFlow** foi criado apenas para fins de estudo e prática com **Jetpack Compose**.  
-Ah, e ressaltando, o LoginFlow foi focado no Front-end, não há nada de integrações (banco, Room etc)
+Ah, e ressaltando, o LoginFlow foi focado no Front-end, não há nada de integrações (banco, Room etc)  
 Meu foco foi entender melhor:
 * Como gerenciar múltiplas telas de forma declarativa;  
 * Como aplicar componentes modernos como **Card**, **AsyncImage** e **animações**;  
