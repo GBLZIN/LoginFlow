@@ -179,8 +179,8 @@ fun Login(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit, onSignUp: () 
         Button(
             onClick = {
                 if (textEmail.isBlank() || textPassword.isBlank()) {
-                    onLoginSucess()
-                    Toast.makeText(context, "É preciso preencher os campos!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "É preciso preencher os campos!", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     if (textEmail.length < 3 || textPassword.length <= 3) {
                         Toast.makeText(
