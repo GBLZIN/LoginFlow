@@ -38,13 +38,13 @@ O **LoginFlow** possui quatro telas principais, sendo elas:
 - Exibe uma **Card View**, com imagem carregada via `AsyncImage`.
 - Ícone de “Curtir” animado com rotação (`animateFloatAsState`).
 - Botão de retorno ao menu de login.
-- Ícone de **informação (i)** que, ao ser clicado, exibe um **Card com descrição da página** e link externo (`LinkAnnotation`)   
+- Ícone de **informação (i)** que, ao ser clicado, exibe um **Card com descrição da página** e link externo (`LinkAnnotation`)
 para mais informações.
 
 ## Tomadas de Decisão
 
 ### Gerenciamento de estado
-Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.  
+Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.
 Isso deixou o fluxo mais leve e direto, sem precisar criar ViewModels.  
 Para o Card de informação, usei `remember` para gerenciar sua visibilidade de forma dinâmica, permitindo que ele seja   
 aberto e fechado pelo usuário sem afetar o restante da interface.
@@ -56,15 +56,15 @@ visual dos apps Android atuais.
 ### Card
 Implementei o uso do `Card` para testar composição de layouts com **bordas arredondadas**, **imagem de cabeçalho** e **conteúdo dinâmico**.
 O resultado foi uma tela simples, mas visualmente interessante e organizada.  
-Agora, o **Ícone de informação** abre um Card flutuante interativo, que pode ser fechado pelo usuário e contém links externos para mais detalhes.
+O ícone de informação abre um Card interativo, que pode ser fechado pelo usuário e contém links externos.
 
 ### AsyncImage e Coil
 Utilizei o **Coil Compose** com `AsyncImage` para exibir imagens hospedadas na web de forma leve e prática, sem  
 precisar de bibliotecas pesadas.
 
 ### Animações
-Adicionei uma pequena animação de rotação no ícone de “Like” para dar mais vida à interface, utilizando `animateFloatAsState`.  
-Além disso, o ícone de **informação** permite abrir e fechar um **Card com texto interativo**, melhorando a experiência do   
+Adicionei uma pequena animação de rotação no ícone de “Like” para dar mais vida à interface, utilizando `animateFloatAsState`.
+Além disso, o ícone de **informação** permite abrir e fechar um **Card com texto interativo**, melhorando a experiência do 
 usuário e fornecendo contexto adicional da página. 
 
 ## Demonstração
