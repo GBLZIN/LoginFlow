@@ -1,25 +1,32 @@
 package com.devgah.loginflow.screen
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.filled.ThumbUpOffAlt
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -39,6 +46,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.devgah.loginflow.components.MsgInfo
 import com.devgah.loginflow.ui.theme.Blue_Beaut
 import com.devgah.loginflow.ui.theme.Green_Beaut
 import com.devgah.loginflow.ui.theme.Pink_Beaut
@@ -50,8 +58,8 @@ fun InfosChecking() {
     when (currentScreen) {
         "login" -> Login(
             onLoginSucess = { currentScreen = "page" },
-            onForgotPassword = { currentScreen = "forgot"},
-            onSignUp = {currentScreen = "signUp"}
+            onForgotPassword = { currentScreen = "forgot" },
+            onSignUp = { currentScreen = "signUp" }
         )
     }
 }
@@ -59,96 +67,139 @@ fun InfosChecking() {
 @Composable
 fun Page(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit) {
     var showLikeButton by remember { mutableStateOf(false) }
+    var showInfoButton by remember { mutableStateOf(false) }
     val rotationAngle by animateFloatAsState(
         targetValue = if (showLikeButton) 360f else 0f,
         label = "rotation"
     )
     val context = LocalContext.current
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray)
-            .padding(8.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(8.dp)
     ) {
-        Card(
-            shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = Blue_Beaut)
+        Column(
+            modifier = Modifier.align(Alignment.Center)
         ) {
-            AsyncImage(
-                model = "https://img.freepik.com/free-vector/hand-drawn-labour-day-background_23-2149363125.jpg",
-                contentDescription = null,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 20.dp,
-                            topEnd = 20.dp
+            Card(
+                shape = RoundedCornerShape(15.dp),
+                border = BorderStroke(2.dp, color = Blue_Beaut)
+            ) {
+                Column {
+                    Box {
+                        AsyncImage(
+                            model = "https://img.freepik.com/free-vector/hand-drawn-labour-day-background_23-2149363125.jpg",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .height(200.dp)
+                                .fillMaxWidth()
+                                .clip(
+                                    RoundedCornerShape(
+                                        topStart = 20.dp,
+                                        topEnd = 20.dp
+                                    )
+                                ),
+                            contentScale = ContentScale.Crop,
                         )
-                    ),
-                contentScale = ContentScale.Crop,
-            )
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Text(
-                    text = "Manutenção",
-                    fontSize = 24.sp
-                )
-                Text(
-                    text = "Esta página está em desenvolvimento...",
-                    fontSize = 14.sp
-                )
-            }
 
-            Row(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(
-                    onClick = {
-                        showLikeButton = !showLikeButton
-                        if (showLikeButton) {
-                            Toast.makeText(context, "Marcado como Gostei!", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(context, "Gostei removido!", Toast.LENGTH_SHORT).show()
+                        Icon(
+                            imageVector = Icons.Filled.Info,
+                            contentDescription = null,
+                            tint = Color.LightGray,
+                            modifier = Modifier
+                                .align(alignment = Alignment.TopEnd)
+                                .offset(y = 200.dp)
+                                .padding(16.dp)
+                                .clickable { showInfoButton = !showInfoButton }
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(
+                            text = "Manutenção",
+                            fontSize = 24.sp
+                        )
+                        Text(
+                            text = "Esta página está em desenvolvimento...",
+                            fontSize = 14.sp
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        IconButton(
+                            onClick = {
+                                showLikeButton = !showLikeButton
+                                if (showLikeButton) {
+                                    Toast.makeText(context, "Marcado como Gostei!", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, "Gostei removido!", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Icon(
+                                if (showLikeButton) Icons.Filled.ThumbUp else Icons.Filled.ThumbUpOffAlt,
+                                contentDescription = null,
+                                tint = if (showLikeButton) Pink_Beaut else Color.White,
+                                modifier = Modifier.rotate(rotationAngle),
+                            )
                         }
-                    },
-                    modifier = Modifier.size(40.dp)
-                ) {
-                    Icon(
-                        if (showLikeButton) Icons.Filled.ThumbUp else Icons.Filled.ThumbUpOffAlt,
-                        contentDescription = null,
-                        tint = if (showLikeButton) Pink_Beaut else Color.White,
-                        modifier = Modifier.rotate(rotationAngle),
-                    )
-                }
 
-                Button(
-                    onClick = {
-                        onLoginSucess()
-                    },
-                    contentPadding = PaddingValues(
-                        horizontal = 16.dp,
-                        vertical = 8.dp
-                    ),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Green_Beaut
-                    ),
-                    modifier = Modifier.height(40.dp)
+                        Button(
+                            onClick = {
+                                onLoginSucess()
+                            },
+                            contentPadding = PaddingValues(
+                                horizontal = 16.dp,
+                                vertical = 8.dp
+                            ),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Green_Beaut
+                            ),
+                            modifier = Modifier.height(40.dp),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text(
+                                text = "Voltar ao Menu",
+                                color = Color.White
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        AnimatedVisibility(
+            visible = showInfoButton,
+            modifier = Modifier
+                .align(alignment = Alignment.TopEnd)
+                .offset(y = 325.dp)
+                .padding(40.dp)
+        ) {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.LightGray
+                ),
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier.width(250.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = "Voltar ao Menu",
-                        color = Color.White
-                    )
+                    MsgInfo()
                 }
             }
         }
