@@ -38,12 +38,16 @@ O **LoginFlow** possui quatro telas principais, sendo elas:
 - Exibe uma **Card View**, com imagem carregada via `AsyncImage`.
 - Ícone de “Curtir” animado com rotação (`animateFloatAsState`).
 - Botão de retorno ao menu de login.
+- Ícone de **informação (i)** que, ao ser clicado, exibe um **Card com descrição da página** e link externo (`LinkAnnotation`)   
+para mais informações.
 
 ## Tomadas de Decisão
 
 ### Gerenciamento de estado
-Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.
-Isso deixou o fluxo mais leve e direto, sem precisar criar ViewModels.
+Utilizei o `rememberSaveable` para controlar as transições entre telas, preservando o estado mesmo em recomposições.  
+Isso deixou o fluxo mais leve e direto, sem precisar criar ViewModels.  
+Para o Card de informação, usei `remember` para gerenciar sua visibilidade de forma dinâmica, permitindo que ele seja   
+aberto e fechado pelo usuário sem afetar o restante da interface.
 
 ### Material 3
 Escolhi o **Material 3** para dar um visual consistente e moderno às telas, mantendo o padrão   
@@ -51,18 +55,21 @@ visual dos apps Android atuais.
 
 ### Card
 Implementei o uso do `Card` para testar composição de layouts com **bordas arredondadas**, **imagem de cabeçalho** e **conteúdo dinâmico**.
-O resultado foi uma tela simples, mas visualmente interessante e organizada.
+O resultado foi uma tela simples, mas visualmente interessante e organizada.  
+Agora, o **Ícone de informação** abre um Card flutuante interativo, que pode ser fechado pelo usuário e contém links externos para mais detalhes.
 
 ### AsyncImage e Coil
 Utilizei o **Coil Compose** com `AsyncImage` para exibir imagens hospedadas na web de forma leve e prática, sem  
 precisar de bibliotecas pesadas.
 
 ### Animações
-Adicionei uma pequena animação de rotação no ícone de “Like” para dar mais vida à interface, utilizando `animateFloatAsState`.
+Adicionei uma pequena animação de rotação no ícone de “Like” para dar mais vida à interface, utilizando `animateFloatAsState`.  
+Além disso, o ícone de **informação** permite abrir e fechar um **Card com texto interativo**, melhorando a experiência do   
+usuário e fornecendo contexto adicional da página. 
 
 ## Demonstração
 Deixarei abaixo um `Vídeo` curto para demonstração do App em funcionamento: 
-> https://github.com/user-attachments/assets/b904ae95-a510-4870-804a-9bd9c4a20b8e
+> https://github.com/user-attachments/assets/155d2b26-ce86-45b7-aa1b-7a04bd3cba93
 
 ## Observações
 O **LoginFlow** foi criado apenas para fins de estudo e prática com **Jetpack Compose**.  
