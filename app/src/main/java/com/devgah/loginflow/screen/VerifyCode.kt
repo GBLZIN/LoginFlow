@@ -15,18 +15,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.MarkEmailUnread
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,13 +39,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.devgah.loginflow.ui.theme.Border
+import com.devgah.loginflow.ui.theme.Blue_Beaut
 import com.devgah.loginflow.ui.theme.Green_Beaut
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
-fun Checking() {
+fun CheckingCode() {
     var currentScreen by rememberSaveable { mutableStateOf("login") }
 
     when (currentScreen) {
@@ -53,22 +51,21 @@ fun Checking() {
             onLoginSucess = { currentScreen = "login" },
             onForgotPassword = { currentScreen = "forgot" }
         )
-        "verifyCode" -> VerifyCode(
+        "newPassword" -> NewPassword(
             onPage = {currentScreen = "page"},
             onBack = {currentScreen = "login"},
-            onVerifyCode = {currentScreen = "verifyCode"},
             onNewPassword = {currentScreen = "newPassword"}
         )
     }
 }
 
 @Composable
-fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> Unit) {
-    var email by rememberSaveable { mutableStateOf("") }
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-    val focus = LocalFocusManager.current
+fun VerifyCode(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> Unit, onNewPassword: () -> Unit) {
 
+    var code by rememberSaveable { mutableStateOf("") }
+    val maxChar = 6
+    val context = LocalContext.current
+    val focus = LocalFocusManager.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +76,6 @@ fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> U
             }
     )
     {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,7 +85,7 @@ fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> U
         ) {
 
             Icon(
-                imageVector = Icons.Filled.Person,
+                imageVector = Icons.Filled.MarkEmailUnread,
                 contentDescription = null,
                 tint = Color.White,
                 modifier = Modifier
@@ -98,14 +94,14 @@ fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> U
             )
 
             Text(
-                text = "Redefinir sua senha",
+                text = "Insira o código de 6 dígitos",
                 color = Green_Beaut,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.offset(y = (-30).dp)
             )
             Text(
-                text = "Digite o email da sua conta para enviarmos",
+                text = "Enviamos um código de verificação",
                 color = Color.White,
                 fontSize = 13.5.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -113,62 +109,73 @@ fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> U
             )
 
             Text(
-                text = "um link para redefinir sua senha.",
+                text = "para o seu email.",
                 color = Color.White,
                 fontSize = 13.5.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.offset(y = (-23).dp)
             )
-
             Spacer(modifier = Modifier.height(6.dp))
+
             OutlinedTextField(
                 modifier = Modifier.width(325.dp),
-                value = email,
+                value = code,
                 onValueChange = {
-                    email = it
+                    if (it.length <= maxChar) {
+                        code = it
+                    }
                 },
                 placeholder = {
                     Text(
-                        text = "Digite o seu Email"
+                        text = "Código de 6 dígitos",
+                        color = Color.White
                     )
                 },
+                singleLine = true,
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email
+                    keyboardType = KeyboardType.Number
                 ),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
-                    cursorColor = Color.White,
+                    focusedTextColor = Color.White,
                     focusedBorderColor = Green_Beaut,
-                    unfocusedBorderColor = Border
+                    cursorColor = Color.White
                 ),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Filled.Email,
+                        imageVector = Icons.Filled.Code,
                         contentDescription = null,
                         tint = Color.White
                     )
                 },
-                shape = RoundedCornerShape(10.dp),
-                singleLine = true,
+                shape = RoundedCornerShape(10.dp)
             )
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(3.dp))
+
+            TextButton(
+                onClick = {
+                    Toast.makeText(context, "Função indisponível!", Toast.LENGTH_SHORT).show()
+                },
+                modifier = Modifier
+                    .align(alignment = Alignment.Start)
+                    .offset(x = 32.dp)
+            ) {
+                Text(
+                    text = "Reenviar código",
+                    color = Blue_Beaut,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
-                    if (email.isBlank()) {
+                    if (code.isBlank()) {
                         Toast.makeText(context, "É preciso preencher o campo!", Toast.LENGTH_SHORT)
                             .show()
                     } else {
-                        coroutineScope.launch {
-                            delay(500)
-                            Toast.makeText(
-                                context,
-                                "Email de recuperação enviado para $email",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            onVerifyCode()
-                        }
+                        Toast.makeText(context, "Código válido!", Toast.LENGTH_SHORT).show()
+                        onNewPassword()
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -181,29 +188,25 @@ fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> U
             )
             {
                 Text(
-                    text = "Enviar email para redefinição de Senha",
+                    text = "Confirmar",
                     color = Color.White
                 )
             }
-
-            Button(
-                onClick = {
-                    onBack()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text =
+                """
+                Não recebeu o email? Confira o spam. 
+                Se não estiver lá, verifique o email.  
+                Talvez não haja uma conta cadastrada.
+            """.trimIndent(),
+                color = Color.LightGray,
+                fontSize = 13.5.sp,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
-                    .offset(y = 5.dp),
-                shape = RoundedCornerShape(10.dp)
+                    .align(alignment = Alignment.Start)
+                    .offset(x = 44.dp)
             )
-            {
-                Text(
-                    text = "Voltar",
-                    color = Color.White
-                )
-            }
-
         }
     }
 }

@@ -185,7 +185,7 @@ fun Page(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit) {
             visible = showInfoButton,
             modifier = Modifier
                 .align(alignment = Alignment.TopEnd)
-                .offset(y = 325.dp)
+                .offset(y = 327.dp)
                 .padding(40.dp)
         ) {
             Card(
