@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.devgah.loginflow.screen.CheckingInstances
+import com.devgah.loginflow.navigation.NavHostController
 import com.devgah.loginflow.ui.theme.LoginFlowTheme
 
  class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ import com.devgah.loginflow.ui.theme.LoginFlowTheme
         enableEdgeToEdge()
         setContent {
             LoginFlowTheme {
-                CheckingInstances()
+                NavHostController()
             }
         }
     }

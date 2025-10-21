@@ -45,25 +45,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun Checking() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "page" -> Page(
-            onLoginSucess = { currentScreen = "login" },
-            onForgotPassword = { currentScreen = "forgot" }
-        )
-        "verifyCode" -> VerifyCode(
-            onPage = {currentScreen = "page"},
-            onBack = {currentScreen = "login"},
-            onVerifyCode = {currentScreen = "verifyCode"},
-            onNewPassword = {currentScreen = "newPassword"}
-        )
-    }
-}
-
-@Composable
-fun ForgotPassword(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> Unit) {
+fun ForgotPassword(onBack: () -> Unit, onVerifyCode: () -> Unit) {
     var email by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()

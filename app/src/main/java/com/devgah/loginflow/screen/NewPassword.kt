@@ -43,19 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.devgah.loginflow.ui.theme.Green_Beaut
 
 @Composable
-fun CheckInfo() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "page" -> Page(
-            onLoginSucess = { currentScreen = "login" },
-            onForgotPassword = { currentScreen = "forgot" }
-        )
-    }
-}
-
-@Composable
-fun NewPassword(onBack: () -> Unit, onPage: () -> Unit, onNewPassword: () -> Unit) {
+fun NewPassword(onBack: () -> Unit) {
 
     var newPassword by rememberSaveable { mutableStateOf("") }
     var passwordConfirm by rememberSaveable { mutableStateOf("") }
@@ -148,40 +136,43 @@ fun NewPassword(onBack: () -> Unit, onPage: () -> Unit, onNewPassword: () -> Uni
                 shape = RoundedCornerShape(10.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
-                OutlinedTextField(
-                    modifier = Modifier.width(325.dp),
-                    value = passwordConfirm,
-                    onValueChange = {
-                        passwordConfirm = it
-                    },
-                    placeholder = {
-                        Text(
-                            text = "Confirmar nova senha",
-                            color = Color.White
-                        )
-                    },
-                    singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedTextColor = Color.White,
-                        focusedTextColor = Color.White,
-                        focusedBorderColor = Green_Beaut,
-                        cursorColor = Color.White
-                    ),
-                    visualTransformation = PasswordVisualTransformation(),
-                    shape = RoundedCornerShape(10.dp)
-                )
+            OutlinedTextField(
+                modifier = Modifier.width(325.dp),
+                value = passwordConfirm,
+                onValueChange = {
+                    passwordConfirm = it
+                },
+                placeholder = {
+                    Text(
+                        text = "Confirmar nova senha",
+                        color = Color.White
+                    )
+                },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.White,
+                    focusedTextColor = Color.White,
+                    focusedBorderColor = Green_Beaut,
+                    cursorColor = Color.White
+                ),
+                visualTransformation = PasswordVisualTransformation(),
+                shape = RoundedCornerShape(10.dp)
+            )
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
                     when {
                         newPassword.isBlank() || passwordConfirm.isBlank()
-                           -> Toast.makeText(context, "É preciso preencher os campos!", Toast.LENGTH_SHORT).show()
+                            -> Toast.makeText(context, "É preciso preencher os campos!", Toast.LENGTH_SHORT).show()
                         newPassword.length < minChar
-                           -> Toast.makeText(context, "A senha deve ter ao menos $minChar caracteres", Toast.LENGTH_SHORT).show()
+                            -> Toast.makeText(context, "A senha deve ter ao menos $minChar caracteres", Toast.LENGTH_SHORT).show()
                         newPassword != passwordConfirm
-                           -> Toast.makeText(context, "As senhas não correspondem", Toast.LENGTH_SHORT).show()
-                        else -> onPage()
+                            -> Toast.makeText(context, "As senhas não correspondem", Toast.LENGTH_SHORT).show()
+                        else -> {
+                            Toast.makeText(context, "Senha redefinida com sucesso!", Toast.LENGTH_SHORT).show()
+                            onBack()
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(

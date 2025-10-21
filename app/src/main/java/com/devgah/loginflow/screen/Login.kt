@@ -51,39 +51,7 @@ import com.devgah.loginflow.ui.theme.Border
 import com.devgah.loginflow.ui.theme.Green_Beaut
 
 @Composable
-fun CheckingInstances() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "login" -> Login(
-            onLoginSucess = { currentScreen = "page" },
-            onForgotPassword = { currentScreen = "forgot" },
-            onSignUp = { currentScreen = "signUp" })
-        "forgot" -> ForgotPassword(
-            onBack = { currentScreen = "login" },
-            onPage = { currentScreen = "page" },
-            onVerifyCode = {currentScreen = "verifyCode"})
-        "page" -> Page(
-            onLoginSucess = { currentScreen = "login" },
-            onForgotPassword = { currentScreen = "forgot" })
-        "signUp" -> SignUp(
-            onSignUp = { currentScreen = "login" }, onPage = { currentScreen = "page" })
-        "verifyCode" -> VerifyCode(
-            onPage = { currentScreen = "page" },
-            onBack = { currentScreen = "login" },
-            onVerifyCode = {currentScreen = "verifyCode"},
-            onNewPassword = {currentScreen = "newPassword"}
-        )
-        "newPassword" -> NewPassword(
-            onBack = {currentScreen = "login"},
-            onPage = {currentScreen = "page"},
-            onNewPassword = {currentScreen = "newPassword"}
-        )
-    }
-}
-
-@Composable
-fun Login(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit, onSignUp: () -> Unit) {
+fun Login(onLoginSucess: (String) -> Unit, onForgotPassword: () -> Unit, onSignUp: () -> Unit) {
     var textEmail by rememberSaveable { mutableStateOf("") }
     var textPassword by rememberSaveable { mutableStateOf("") }
     var showPasword by rememberSaveable { mutableStateOf(false) }
@@ -223,7 +191,7 @@ fun Login(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit, onSignUp: () 
                             ).show()
                         } else {
                             Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT).show()
-                            onLoginSucess()
+                            onLoginSucess(textEmail)
                         }
                     }
                 },

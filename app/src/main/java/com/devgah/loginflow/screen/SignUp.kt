@@ -52,20 +52,7 @@ import com.devgah.loginflow.ui.theme.Border
 import com.devgah.loginflow.ui.theme.Green_Beaut
 
 @Composable
-fun CheckingInfos() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "login" -> Login(
-            onLoginSucess = { currentScreen = "page" },
-            onForgotPassword = { currentScreen = "forgot"},
-            onSignUp = {currentScreen = "signUp"}
-        )
-    }
-}
-
-@Composable
-fun SignUp(onSignUp: () -> Unit, onPage: () -> Unit) {
+fun SignUp(onSignUp: () -> Unit, onPage: (String) -> Unit) {
 
     var textEmail by rememberSaveable { mutableStateOf("") }
     var textPassword by rememberSaveable { mutableStateOf("") }
@@ -225,15 +212,12 @@ fun SignUp(onSignUp: () -> Unit, onPage: () -> Unit) {
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT)
-                                .show()
-                            onPage()
+                            Toast.makeText(context, "Cadastro bem-sucedido!", Toast.LENGTH_SHORT).show()
+                            onPage(textEmail)  // Navega para a próxima tela após o sucesso.
                         }
                     }
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Green_Beaut
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = Green_Beaut),
                 modifier = Modifier
                     .width(325.dp)
                     .offset(y = 27.dp),

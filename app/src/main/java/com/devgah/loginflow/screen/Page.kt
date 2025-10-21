@@ -34,7 +34,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,20 +51,7 @@ import com.devgah.loginflow.ui.theme.Green_Beaut
 import com.devgah.loginflow.ui.theme.Pink_Beaut
 
 @Composable
-fun InfosChecking() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "login" -> Login(
-            onLoginSucess = { currentScreen = "page" },
-            onForgotPassword = { currentScreen = "forgot" },
-            onSignUp = { currentScreen = "signUp" }
-        )
-    }
-}
-
-@Composable
-fun Page(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit) {
+fun Page(onBack: () -> Unit, email: String) {
     var showLikeButton by remember { mutableStateOf(false) }
     var showInfoButton by remember { mutableStateOf(false) }
     val rotationAngle by animateFloatAsState(
@@ -159,7 +145,7 @@ fun Page(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit) {
 
                         Button(
                             onClick = {
-                                onLoginSucess()
+                                onBack()
                             },
                             contentPadding = PaddingValues(
                                 horizontal = 16.dp,
@@ -203,5 +189,13 @@ fun Page(onLoginSucess: () -> Unit, onForgotPassword: () -> Unit) {
                 }
             }
         }
+        Text(
+            text = "Olá, $email",
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(horizontal = 16.dp, vertical = 32.dp),
+            fontSize = 16.sp,
+            color = Color.DarkGray
+        )
     }
 }

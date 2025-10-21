@@ -43,24 +43,7 @@ import com.devgah.loginflow.ui.theme.Blue_Beaut
 import com.devgah.loginflow.ui.theme.Green_Beaut
 
 @Composable
-fun CheckingCode() {
-    var currentScreen by rememberSaveable { mutableStateOf("login") }
-
-    when (currentScreen) {
-        "page" -> Page(
-            onLoginSucess = { currentScreen = "login" },
-            onForgotPassword = { currentScreen = "forgot" }
-        )
-        "newPassword" -> NewPassword(
-            onPage = {currentScreen = "page"},
-            onBack = {currentScreen = "login"},
-            onNewPassword = {currentScreen = "newPassword"}
-        )
-    }
-}
-
-@Composable
-fun VerifyCode(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> Unit, onNewPassword: () -> Unit) {
+fun VerifyCode(onNewPassword: () -> Unit) {
 
     var code by rememberSaveable { mutableStateOf("") }
     val maxChar = 6
@@ -170,12 +153,18 @@ fun VerifyCode(onBack: () -> Unit, onPage: () -> Unit, onVerifyCode: () -> Unit,
 
             Button(
                 onClick = {
-                    if (code.isBlank()) {
-                        Toast.makeText(context, "É preciso preencher o campo!", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        Toast.makeText(context, "Código válido!", Toast.LENGTH_SHORT).show()
-                        onNewPassword()
+                    when {
+                        code.isBlank() -> {
+                            Toast.makeText(context, "É preciso preencher o campo!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                        code.length < 6 -> {
+                            Toast.makeText(context, "insira 6 dígitos!", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(context, "Código válido!", Toast.LENGTH_SHORT).show()
+                            onNewPassword()
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
