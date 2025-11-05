@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.devgah.loginflow.components.NewCode
 import com.devgah.loginflow.ui.theme.Blue_Beaut
 import com.devgah.loginflow.ui.theme.Green_Beaut
 
@@ -49,6 +51,8 @@ fun VerifyCode(onNewPassword: () -> Unit) {
     val maxChar = 6
     val context = LocalContext.current
     val focus = LocalFocusManager.current
+    var showNewCode by rememberSaveable { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -100,6 +104,11 @@ fun VerifyCode(onNewPassword: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(6.dp))
 
+            if (showNewCode) {
+                NewCode()
+                Spacer(modifier = Modifier.height(height = 8.dp))
+            }
+
             OutlinedTextField(
                 modifier = Modifier.width(325.dp),
                 value = code,
@@ -137,11 +146,11 @@ fun VerifyCode(onNewPassword: () -> Unit) {
 
             TextButton(
                 onClick = {
-                    Toast.makeText(context, "Função indisponível!", Toast.LENGTH_SHORT).show()
+                    showNewCode = true
                 },
                 modifier = Modifier
                     .align(alignment = Alignment.Start)
-                    .offset(x = 32.dp)
+                    .padding(horizontal = 32.dp)
             ) {
                 Text(
                     text = "Reenviar código",
@@ -184,7 +193,7 @@ fun VerifyCode(onNewPassword: () -> Unit) {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text =
-                """
+                    """
                 Não recebeu o email? Confira o spam. 
                 Se não estiver lá, verifique o email.  
                 Talvez não haja uma conta cadastrada.
@@ -194,7 +203,7 @@ fun VerifyCode(onNewPassword: () -> Unit) {
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .align(alignment = Alignment.Start)
-                    .offset(x = 44.dp)
+                    .padding(horizontal = 44.dp)
             )
         }
     }

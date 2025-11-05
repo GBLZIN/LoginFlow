@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -168,8 +169,9 @@ fun Login(onLoginSucess: (String) -> Unit, onForgotPassword: () -> Unit, onSignU
             Text(
                 text = "Esqueci minha senha",
                 modifier = Modifier
-                    .offset(x = 85.dp)
-                    .offset(y = 6.5.dp)
+                    .align(Alignment.End)
+                    .padding(vertical = 8.dp)
+                    .padding(end = 42.dp)
                     .clickable {
                         onForgotPassword()
                     },

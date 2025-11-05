@@ -20,7 +20,6 @@ fun NavHostController() {
             Login(
                 onLoginSucess = { email ->
                     navController.navigate("page/$email") {
-                        popUpTo("login")
                     }
                 },
                 onForgotPassword = {

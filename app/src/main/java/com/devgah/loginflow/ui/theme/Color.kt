@@ -12,5 +12,6 @@ val Pink40 = Color(0xFF7D5260)
 
 val Blue_Beaut = Color(0xFF4493f8)
 val Green_Beaut = Color(0xFF238636)
+val Green_Code = Color(0xFF03C916)
 val Border = Color(0xFF30363D)
 val Pink_Beaut = Color(0xFFFF3040)
