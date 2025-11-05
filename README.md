@@ -69,7 +69,7 @@ usuário e fornecendo contexto adicional da página.
 
 ## Demonstração
 Deixarei abaixo um `Vídeo` curto para demonstração do App em funcionamento: 
-> https://github.com/user-attachments/assets/c0e40f03-c308-4b61-a1e9-c7ac683fc57d
+> https://github.com/user-attachments/assets/47afc4e6-871b-4a15-a645-d30cb5268355
 
 ## Observações
 O **LoginFlow** foi criado apenas para fins de estudo e prática com **Jetpack Compose**.  
